@@ -15,7 +15,7 @@ def longest_consecutive(nums: list[int]) -> int:
             else:
                 s = counter[n + 1]
                 s |= counter[n - 1]
-                for e in counter[n - 1]:
+            for e in counter[n - 1]:
                     counter[e] = s
 
 
@@ -30,6 +30,24 @@ def longest_consecutive(nums: list[int]) -> int:
         counter[n] = s
         longest = max(longest, len(s))
     return longest
+
+
+def longest_consecutive(nums: list[int]) -> int:
+    s = set(nums)
+    longest = 0
+
+    for n in s:
+        if n - 1 in s:
+            continue
+
+        len = 0
+        while n in s:
+            len += 1
+            n += 1
+        longest = max(len, longest)
+
+    return longest
+
 
 def test_longest_consecutive():
     nums = [2, 20, 4, 10, 3, 4, 5]
